@@ -1,20 +1,23 @@
 ## Preguntas orientadoras
 
-### 1. Describa brevemente los diferentes perfiles de familias de
-microprocesadores/microcontroladores de ARM. Explique alguna de sus diferencias
-características.
+### 1. Describa brevemente los diferentes perfiles de familias de microprocesadores/microcontroladores de ARM. Explique alguna de sus diferencias características.
 
 ## Cortex M
 ### 1. Describa brevemente las diferencias entre las familias de procesadores Cortex M0, M3 y M4.
-### 2. ¿Por qué se dice que el set de instrucciones Thumb permite mayor densidad de código?
-Explique
+### 2. ¿Por qué se dice que el set de instrucciones Thumb permite mayor densidad de código? Explique
 ### 3. ¿Qué entiende por arquitectura load-store? ¿Qué tipo de instrucciones no posee este tipo de arquitectura?
 
- En la arquitectura load-store, para que las instrucciones puedan ser operadas, las mismas deben ser leidas de la memoria SRAM y guardar los resultados en un registro
+    En la arquitectura load-store, para que las instrucciones puedan ser operadas, las mismas deben ser leidas de la memoria SRAM y guardar los resultados en un registro
 
 ### 4. ¿Cómo es el mapa de memoria de la familia?
+
 ### 5. ¿Qué ventajas presenta el uso de los “shadowed pointers” del PSP y el MSP?
 ### 6. Describa los diferentes modos de privilegio y operación del Cortex M, sus relaciones y como se conmuta de uno al otro. Describa un ejemplo en el que se pasa del modo privilegiado a no priviligiado y nuevamente a privilegiado.
+
+    El programa se inicia en modo Thread privilegiado. Luego por SW se puede pasar al modo Thread no privilegiado.
+    Las interrupciones se ejecutan en modo Handler. El modo Handler siempre es privilegiado es decir que en el contexto de interrupcion, siempre voy a tener acceso a todos los perifericos.
+    Cuando se termina de ejecutar la interrupcion, el procesador vuelve a la funcion en la que estaba, es decir que vuelve al modo en el que estaba.
+
 ### 7. ¿Qué se entiende por modelo de registros ortogonal? Dé un ejemplo
 ### 8. ¿Qué ventajas presenta el uso de intrucciones de ejecución condicional (IT)? Dé un ejemplo
 ### 9. Describa brevemente las excepciones más prioritarias (reset, NMI, Hardfault).
