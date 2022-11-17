@@ -158,7 +158,17 @@ int main(void)
   PrivilegiosSVC ();
 
   const uint32_t Resultado = asm_sum (5, 3);
+  uint32_t Ej1_VecIN[4] = {2,3,6,5};
+  zeros(Ej1_VecIN, 4);
+
+
+  uint32_t Ej2_VecIN[4] = {2,3,6,5};
+  uint32_t Ej2_VecOUT[4] = {0,0,0,0};
+  productoEscalar32(Ej2_VecIN, Ej2_VecOUT, 4, 3);
+
   /* USER CODE END 2 */
+
+
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */

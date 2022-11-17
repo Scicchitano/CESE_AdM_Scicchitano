@@ -13,6 +13,7 @@ El **ARM Cortex-M** es un grupo de núcleos de procesador RISC ARM de 32 bits. S
 ## Cortex M
 ### 1. Describa brevemente las diferencias entre las familias de procesadores Cortex M0, M3 y M4.
 ### 2. ¿Por qué se dice que el set de instrucciones Thumb permite mayor densidad de código? Explique
+Porque el set de instrucciones Thumb son de 16 bits. Por lo tanto en el mismo espacio de memoria entran mas instrucciones Thumb que en una arquitectura de 32 bits.
 ### 3. ¿Qué entiende por arquitectura load-store? ¿Qué tipo de instrucciones no posee este tipo de arquitectura?
 
 En la arquitectura load-store, para que las instrucciones puedan ser operadas, las mismas deben ser leidas de la memoria SRAM y guardar los resultados en un registro
@@ -22,6 +23,7 @@ En la arquitectura load-store, para que las instrucciones puedan ser operadas, l
 El mapa de memoria es plano de 4 GB y esta dividido por distintos rangos de memoria que contienen informacion de el codigo, los perifericos, SRAM, RAM externa, dispositivos externos, entre otros.
 
 ### 5. ¿Qué ventajas presenta el uso de los “shadowed pointers” del PSP y el MSP?
+
 ### 6. Describa los diferentes modos de privilegio y operación del Cortex M, sus relaciones y como se conmuta de uno al otro. Describa un ejemplo en el que se pasa del modo privilegiado a no priviligiado y nuevamente a privilegiado.
 
 El programa se inicia en modo Thread privilegiado. Luego por SW se puede pasar al modo Thread no privilegiado.
@@ -29,8 +31,14 @@ Las interrupciones se ejecutan en modo Handler. El modo Handler siempre es privi
 Cuando se termina de ejecutar la interrupcion, el procesador vuelve a la funcion en la que estaba, es decir que vuelve al modo en el que estaba.
 
 ### 7. ¿Qué se entiende por modelo de registros ortogonal? Dé un ejemplo
+Todos los registros se pueden utilizar para cualquier instruccion. Son de proposito general. Es decir los registros puedes ser utilizados tanto para guardar datos como operandos. Es decir, el manual no especifica que registros usar para alguna determinada operacion.
+
 ### 8. ¿Qué ventajas presenta el uso de intrucciones de ejecución condicional (IT)? Dé un ejemplo
 ### 9. Describa brevemente las excepciones más prioritarias (reset, NMI, Hardfault).
+Reset es cuando se reinicia el microcontrolador.
+El NMI es una interrupcion no enmascarable que se dispara cuando ocurre una interrupcion de hardware que advierte el error de una señal que no puede ser salvado.
+Hardfault es cualquier tipo de contexto que ponga al microcontrolador en estado de falta.
+
 ### 10. Describa las funciones principales de la pila. ¿Cómo resuelve la arquitectura el llamado a funciones y su retorno?
 ### 11. Describa la secuencia de reset del microprocesador.
 ### 12. ¿Qué entiende por “core peripherals”? ¿Qué diferencia existe entre estos y el resto de los periféricos?
