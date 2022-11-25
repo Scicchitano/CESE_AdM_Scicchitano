@@ -34,6 +34,8 @@ Cuando se termina de ejecutar la interrupcion, el procesador vuelve a la funcion
 Todos los registros se pueden utilizar para cualquier instruccion. Son de proposito general. Es decir los registros puedes ser utilizados tanto para guardar datos como operandos. Es decir, el manual no especifica que registros usar para alguna determinada operacion.
 
 ### 8. ¿Qué ventajas presenta el uso de intrucciones de ejecución condicional (IT)? Dé un ejemplo
+La ventaja es que no te que hacer un salto conficional como con un if. ENTONCES EL PIPELINE MANTIENE SU REGIMEN EJECUTANDO UNA INSTRUCCION POR CICLO.
+Por ejemplo, si se agrega el sufijo NE, la instruccion se ejecutara si el flag de estado Z es 1
 ### 9. Describa brevemente las excepciones más prioritarias (reset, NMI, Hardfault).
 Reset es cuando se reinicia el microcontrolador.
 El NMI es una interrupcion no enmascarable que se dispara cuando ocurre una interrupcion de hardware que advierte el error de una señal que no puede ser salvado.
@@ -55,7 +57,10 @@ Hardfault es cualquier tipo de contexto que ponga al microcontrolador en estado 
 
 ## ISA
 ### 1. ¿Qué son los sufijos y para qué se los utiliza? Dé un ejemplo
+Letras que se agregan a final del nombre de una instruccion como variante de la misma.
+En el caso de ldr se puede agregar una 'b' para leer solo los 8 bits menos significativos en vez de leer los 32 bits.
 ### 2. ¿Para qué se utiliza el sufijo ‘s’? Dé un ejemplo
+Para que el valor se extienda a 32 bits y mantenga el signo
 ### 3. ¿Qué utilidad tiene la implementación de instrucciones de aritmética saturada? Dé un ejemplo con operaciones con datos de 8 bits.
 ### 4. Describa brevemente la interfaz entre assembler y C ¿Cómo se reciben los argumentos de las funciones? ¿Cómo se devuelve el resultado? ¿Qué registros deben guardarse en la pila antes de ser modificados?
 ### 5. ¿Qué es una instrucción SIMD? ¿En qué se aplican y que ventajas reporta su uso? Dé un ejemplo.

@@ -52,7 +52,10 @@ UART_HandleTypeDef huart3;
 PCD_HandleTypeDef hpcd_USB_OTG_FS;
 
 /* USER CODE BEGIN PV */
-
+void zeros (uint32_t * vector, uint32_t longitud);
+void asm_zeros (uint32_t * vector, uint32_t longitud);   // Agregar esto
+void asm_productoEscalar32(uint32_t * vectorIn, uint32_t * vectorOut, uint32_t longitud, uint32_t escalar);
+void asm_productoEscalar16(uint16_t * vectorIn, uint16_t * vectorOut, uint32_t longitud, uint16_t escalar);
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -165,6 +168,15 @@ int main(void)
   uint32_t Ej2_VecIN[4] = {2,3,6,5};
   uint32_t Ej2_VecOUT[4] = {0,0,0,0};
   productoEscalar32(Ej2_VecIN, Ej2_VecOUT, 4, 3);
+  asm_productoEscalar32(Ej2_VecIN, Ej2_VecOUT, 4, 3);
+
+	uint16_t Ej3_VecIN[4] = {2,3,6,5};
+	uint16_t Ej3_VecOUT[4] = {0,0,0,0};
+	productoEscalar16(Ej2_VecIN, Ej2_VecOUT, 4, 3);
+	asm_productoEscalar16(Ej2_VecIN, Ej2_VecOUT, 4, 3);
+
+  uint32_t vector[4] = { 4, 5, 6, 7 };    // Agregar vector de prueba
+  asm_zeros (vector, 4);                  // Agregar llamado a función
 
   /* USER CODE END 2 */
 

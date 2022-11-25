@@ -3,8 +3,11 @@
 .text
 
 @ Simbolos exportados
+.global asm_zeros
 .global asm_svc
 .global asm_sum
+.global asm_productoEscalar32
+.global asm_productoEscalar16
 
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -42,4 +45,78 @@
         @ mov pc,lr
         @ bx lr
         @ push {lr} ... pop {pc}
+
+
+
+
+
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ EJERCICIO 1
+@
+@ Prototipo en "C":
+@   void asm_zeros (uint32_t * vector, uint32_t longitud)
+@
+@ Parametros recibidos:
+@   r0: dirección de memoria de inicio del vector
+@   r1: longitud
+.thumb_func               @ Se avisa al emsablador que esta es una funcion
+    asm_zeros:            @ Etiqueta/nombre de la función.
+        mov r2, 0         @ r2 = 0
+        asm_zeros_bucle:  @ Etiqueta de comienzo de bucle.
+		    str r2, [r0]          @ Asigna 0 a la palabra en dirección r0.
+		    add r0, 4             @ Pasa a la siguiente palabra/elemento en vector.
+		    subs r1, 1            @ Resta 1 a la cantidad de elementos y actualiza flags de estado del procesador. En particular, estamos interesados en el flag Z.
+		    bne asm_zeros_bucle   @ La instrucción se ejecuta mientras el resultado de r1 - 1 no sea cero (Z == 0).
+    	bx lr                 @ La instrucción de salto no se ejecutó porque Z == 1, volvemos a quién nos llamó.
+
+
+
+  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ EJERCICIO 2
+@
+@ Prototipo en "C":
+@   void productoEscalar32(uint32_t * vectorIn, uint32_t * vectorOut, uint32_t longitud, uint32_t escalar)
+@
+@ Parametros recibidos:
+@   r0: dirección de memoria de inicio del vector de entrada
+@   r1: dirección de memoria de inicio del vector de salida
+@   r2: longitud
+@   r3: escalar
+.thumb_func               @ Se avisa al emsablador que esta es una funcion
+    asm_productoEscalar32:            @ Etiqueta/nombre de la función.
+        asm_productoEscalar32_bucle:  @ Etiqueta de comienzo de bucle.
+		    mul r4,r3,r0
+			str r4,[r1]
+		    add r0, 4             @ Pasa a la siguiente palabra/elemento en vector.
+		    add r1, 4             @ Pasa a la siguiente palabra/elemento en vector.
+		    subs r2, 1            @ Resta 1 a la cantidad de elementos y actualiza flags de estado del procesador. En particular, estamos interesados en el flag Z.
+		    bne asm_productoEscalar32_bucle   @ La instrucción se ejecuta mientras el resultado de r1 - 1 no sea cero (Z == 0).
+    	bx lr                 @ La instrucción de salto no se ejecutó porque Z == 1, volvemos a quién nos llamó.
+
+
+
+
+   @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ EJERCICIO 3
+@
+@ Prototipo en "C":
+@   void productoEscalar16(uint16_t * vectorIn, uint16_t * vectorOut, uint32_t longitud, uint16_t escalar)
+@
+@ Parametros recibidos:
+@   r0: dirección de memoria de inicio del vector de entrada
+@   r1: dirección de memoria de inicio del vector de salida
+@   r2: longitud
+@   r3: escalar
+.thumb_func               @ Se avisa al emsablador que esta es una funcion
+    asm_productoEscalar16:            @ Etiqueta/nombre de la función.
+        asm_productoEscalar16_bucle:  @ Etiqueta de comienzo de bucle.
+		    mul r4,r3,r0
+			str r4,[r1]
+		    add r0, 2             @ Pasa a la siguiente palabra/elemento en vector.
+		    add r1, 2             @ Pasa a la siguiente palabra/elemento en vector.
+		    subs r2, 1            @ Resta 1 a la cantidad de elementos y actualiza flags de estado del procesador. En particular, estamos interesados en el flag Z.
+		    bne asm_productoEscalar16_bucle   @ La instrucción se ejecuta mientras el resultado de r1 - 1 no sea cero (Z == 0).
+    	bx lr                 @ La instrucción de salto no se ejecutó porque Z == 1, volvemos a quién nos llamó.
+
 
