@@ -5,7 +5,7 @@
  *      Author: diego
  */
 
-#include "Ejercicio3.h"
+#include "Ejercicio4.h"
 
 #define MASK_12BITS 0xFFF
 

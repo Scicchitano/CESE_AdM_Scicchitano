@@ -180,6 +180,10 @@ int main(void)
   uint32_t vector[4] = { 4, 5, 6, 7 };    // Agregar vector de prueba
   asm_zeros (vector, 4);                  // Agregar llamado a función
 
+	uint32_t Ej6_VecIN[4] = {5000,3,6,5};
+	uint16_t Ej6_VecOUT[4] = {0,0,0,0};
+	pack32to16(Ej6_VecIN, Ej6_VecOUT, 4);
+
   /* USER CODE END 2 */
 
 
