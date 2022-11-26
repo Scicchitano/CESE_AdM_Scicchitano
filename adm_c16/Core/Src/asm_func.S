@@ -86,7 +86,8 @@
 .thumb_func               @ Se avisa al emsablador que esta es una funcion
     asm_productoEscalar32:            @ Etiqueta/nombre de la función.
         asm_productoEscalar32_bucle:  @ Etiqueta de comienzo de bucle.
-		    mul r4,r3,r0
+        	ldr r5,[r0]
+		    mul r4,r3,r5
 			str r4,[r1]
 		    add r0, 4             @ Pasa a la siguiente palabra/elemento en vector.
 		    add r1, 4             @ Pasa a la siguiente palabra/elemento en vector.
@@ -111,7 +112,8 @@
 .thumb_func               @ Se avisa al emsablador que esta es una funcion
     asm_productoEscalar16:            @ Etiqueta/nombre de la función.
         asm_productoEscalar16_bucle:  @ Etiqueta de comienzo de bucle.
-		    mul r4,r3,r0
+		    ldr r5,[r0]
+		    mul r4,r3,r5
 			str r4,[r1]
 		    add r0, 2             @ Pasa a la siguiente palabra/elemento en vector.
 		    add r1, 2             @ Pasa a la siguiente palabra/elemento en vector.
