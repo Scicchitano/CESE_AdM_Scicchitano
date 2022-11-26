@@ -175,6 +175,8 @@ int main(void)
 	productoEscalar16(Ej2_VecIN, Ej2_VecOUT, 4, 3);
 	asm_productoEscalar16(Ej2_VecIN, Ej2_VecOUT, 4, 3);
 
+	asm_productoEscalar12(Ej2_VecIN, Ej2_VecOUT, 4, 3);
+
   uint32_t vector[4] = { 4, 5, 6, 7 };    // Agregar vector de prueba
   asm_zeros (vector, 4);                  // Agregar llamado a función
 

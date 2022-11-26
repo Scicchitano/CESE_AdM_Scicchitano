@@ -8,6 +8,7 @@
 .global asm_sum
 .global asm_productoEscalar32
 .global asm_productoEscalar16
+.global asm_productoEscalar12
 
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -119,6 +120,33 @@
 		    add r1, 2             @ Pasa a la siguiente palabra/elemento en vector.
 		    subs r2, 1            @ Resta 1 a la cantidad de elementos y actualiza flags de estado del procesador. En particular, estamos interesados en el flag Z.
 		    bne asm_productoEscalar16_bucle   @ La instrucción se ejecuta mientras el resultado de r1 - 1 no sea cero (Z == 0).
+    	bx lr                 @ La instrucción de salto no se ejecutó porque Z == 1, volvemos a quién nos llamó.
+
+
+
+     @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ EJERCICIO 4
+@
+@ Prototipo en "C":
+@   void productoEscalar12(uint16_t * vectorIn, uint16_t * vectorOut, uint32_t longitud, uint16_t escalar)
+@
+@ Parametros recibidos:
+@   r0: dirección de memoria de inicio del vector de entrada
+@   r1: dirección de memoria de inicio del vector de salida
+@   r2: longitud
+@   r3: escalar
+.thumb_func               @ Se avisa al emsablador que esta es una funcion
+    asm_productoEscalar12:            @ Etiqueta/nombre de la función.
+    	mov r7,#0xFFF0			@Mascara de 12 bits
+        asm_productoEscalar12_bucle:  @ Etiqueta de comienzo de bucle.
+		    ldr r5,[r0]
+		    mul r4,r3,r5
+		    and r6,r5,r7		@aplico Mascara de 12 bits
+			str r5,[r1]			@Guardo en r1 el resultado de la multiplicacion con la mascara aplicada
+		    add r0, 2             @ Pasa a la siguiente palabra/elemento en vector.
+		    add r1, 2             @ Pasa a la siguiente palabra/elemento en vector.
+		    subs r2, 1            @ Resta 1 a la cantidad de elementos y actualiza flags de estado del procesador. En particular, estamos interesados en el flag Z.
+		    bne asm_productoEscalar12_bucle   @ La instrucción se ejecuta mientras el resultado de r1 - 1 no sea cero (Z == 0).
     	bx lr                 @ La instrucción de salto no se ejecutó porque Z == 1, volvemos a quién nos llamó.
 
 
