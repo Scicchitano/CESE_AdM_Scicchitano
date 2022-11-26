@@ -160,7 +160,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
   PrivilegiosSVC ();
 
-  const uint32_t Resultado = asm_sum (5, 3);
+  /*const uint32_t Resultado = asm_sum (5, 3);
   uint32_t Ej1_VecIN[4] = {2,3,6,5};
   zeros(Ej1_VecIN, 4);
 
@@ -170,19 +170,23 @@ int main(void)
   productoEscalar32(Ej2_VecIN, Ej2_VecOUT, 4, 3);
   asm_productoEscalar32(Ej2_VecIN, Ej2_VecOUT, 4, 3);
 
-	uint16_t Ej3_VecIN[4] = {2,3,6,5};
-	uint16_t Ej3_VecOUT[4] = {0,0,0,0};
-	productoEscalar16(Ej2_VecIN, Ej2_VecOUT, 4, 3);
-	asm_productoEscalar16(Ej2_VecIN, Ej2_VecOUT, 4, 3);
+  uint16_t Ej3_VecIN[4] = {2,3,6,5};
+  uint16_t Ej3_VecOUT[4] = {0,0,0,0};
+  productoEscalar16(Ej2_VecIN, Ej2_VecOUT, 4, 3);
+  asm_productoEscalar16(Ej2_VecIN, Ej2_VecOUT, 4, 3);
 
-	asm_productoEscalar12(Ej2_VecIN, Ej2_VecOUT, 4, 3);
+  asm_productoEscalar12(Ej2_VecIN, Ej2_VecOUT, 4, 3);
 
   uint32_t vector[4] = { 4, 5, 6, 7 };    // Agregar vector de prueba
-  asm_zeros (vector, 4);                  // Agregar llamado a función
+  asm_zeros (vector, 4);                  // Agregar llamado a función*/
 
-	uint32_t Ej6_VecIN[4] = {5000,3,6,5};
-	uint16_t Ej6_VecOUT[4] = {0,0,0,0};
-	pack32to16(Ej6_VecIN, Ej6_VecOUT, 4);
+  uint32_t Ej6_VecIN[4] = {2,3,6,5};
+  uint16_t Ej6_VecOUT[4] = {0,0,0,0};
+  pack32to16(Ej6_VecIN, Ej6_VecOUT, 4);
+
+  int32_t pos_max_Ej6=0;
+
+  pos_max_Ej6=max(Ej6_VecIN, 4);
 
   /* USER CODE END 2 */
 
