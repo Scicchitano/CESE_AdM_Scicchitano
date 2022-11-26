@@ -9,6 +9,7 @@
 .global asm_productoEscalar32
 .global asm_productoEscalar16
 .global asm_productoEscalar12
+.global pack32to16
 
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -148,5 +149,31 @@
 		    subs r2, 1            @ Resta 1 a la cantidad de elementos y actualiza flags de estado del procesador. En particular, estamos interesados en el flag Z.
 		    bne asm_productoEscalar12_bucle   @ La instrucción se ejecuta mientras el resultado de r1 - 1 no sea cero (Z == 0).
     	bx lr                 @ La instrucción de salto no se ejecutó porque Z == 1, volvemos a quién nos llamó.
+
+
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ EJERCICIO 6
+@
+@ Prototipo en "C":
+@   void pack32to16 (int32_t * vectorIn, int16_t *vectorOut, uint32_t longitud);
+@
+@ Parametros recibidos:
+@   r0: dirección de memoria de inicio del vector IN
+@   r1: dirección de memoria de inicio del vector OUT
+@   r2: longitud
+.thumb_func               @ Se avisa al emsablador que esta es una funcion
+    asm_pack32to16:            @ Etiqueta/nombre de la función.
+        mov r2, 0         @ r2 = 0
+        asm_pack32to16_bucle:  @ Etiqueta de comienzo de bucle.
+		    lsr r1,r0,16		@r1= r0>>16
+		    add r0, 4             @ Pasa a la siguiente palabra/elemento en vector.
+		    add r1, 2             @ Pasa a la siguiente palabra/elemento en vector.
+		    subs r2, 1            @ Resta 1 a la cantidad de elementos y actualiza flags de estado del procesador. En particular, estamos interesados en el flag Z.
+		    bne asm_pack32to16_bucle   @ La instrucción se ejecuta mientras el resultado de r1 - 1 no sea cero (Z == 0).
+    	bx lr
+
+
+
 
 
