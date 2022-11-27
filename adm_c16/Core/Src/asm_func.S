@@ -7,9 +7,10 @@
 .global asm_svc
 .global asm_sum
 .global asm_productoEscalar32
+.global asm_max
 .global asm_productoEscalar16
 .global asm_productoEscalar12
-.global pack32to16
+.global asm_pack32to16
 
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -171,6 +172,34 @@
 		    add r1, 2             @ Pasa a la siguiente palabra/elemento en vector.
 		    subs r2, 1            @ Resta 1 a la cantidad de elementos y actualiza flags de estado del procesador. En particular, estamos interesados en el flag Z.
 		    bne asm_pack32to16_bucle   @ La instrucción se ejecuta mientras el resultado de r1 - 1 no sea cero (Z == 0).
+    	bx lr
+
+
+
+
+  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ EJERCICIO 7
+@
+@ Prototipo en "C":
+@   int32_t max (int32_t * vectorIn, uint32_t longitud);
+@
+@ Parametros recibidos:
+@   r0: dirección de memoria de inicio del vector IN
+@   r1: longitud
+.thumb_func               @ Se avisa al emsablador que esta es una funcion
+    asm_max:            @ Etiqueta/nombre de la función.
+        mov r2, 0         @ r2 = -1000
+        mov r3, 0         @ r3 = 0
+        asm_max_bucle:  @ Etiqueta de comienzo de bucle.
+        	ldr r4,[r0]
+		    cmp r4,r2
+		    bgt new_max		@Si r4>r2
+		    new_max:
+		    	ldr r2,[r0]
+		    add r0, 4             @ Pasa a la siguiente palabra/elemento en vector.
+		    subs r1, 1            @ Resta 1 a la cantidad de elementos y actualiza flags de estado del procesador. En particular, estamos interesados en el flag Z.
+		    bne asm_max_bucle   @ La instrucción se ejecuta mientras el resultado de r1 - 1 no sea cero (Z == 0).
+		ldr r0,[r2]
     	bx lr
 
 
