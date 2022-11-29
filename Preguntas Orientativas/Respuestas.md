@@ -12,6 +12,19 @@ El **ARM Cortex-M** es un grupo de núcleos de procesador RISC ARM de 32 bits. S
 
 ## Cortex M
 ### 1. Describa brevemente las diferencias entre las familias de procesadores Cortex M0, M3 y M4.
+#### ***Difererencias de instrucciones:***
+* A diferencia de los demas, Cortex M4 tiene instrucciones de punto flotante y DSP y es la arquitectura que mas instrucciones tiene de las 3.
+* A diferencia de Cortex M0, Cortex M3 tiene tareas de procesamiento de datos avanzado.
+* Cortex M0 es la qe menos instrucciones tiene.
+
+#### ***Difererencias de arquitecturas:***
+* Cotex M4 es la unica que puede tener memoria cache.
+* Cotex M4 es la unica con arquitectura Harvard.
+
+#### ***Difererencias de extensiones:***
+* Cortex M0 es la unica sin division de hardware y sin aritmetica saturada.
+
+
 ### 2. ¿Por qué se dice que el set de instrucciones Thumb permite mayor densidad de código? Explique
 Porque el set de instrucciones Thumb son de 16 bits. Por lo tanto en el mismo espacio de memoria entran mas instrucciones Thumb que en una arquitectura de 32 bits.
 ### 3. ¿Qué entiende por arquitectura load-store? ¿Qué tipo de instrucciones no posee este tipo de arquitectura?
