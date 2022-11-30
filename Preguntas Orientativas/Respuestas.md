@@ -55,6 +55,11 @@ El NMI es una interrupcion no enmascarable que se dispara cuando ocurre una inte
 Hardfault es cualquier tipo de contexto que ponga al microcontrolador en estado de falta.
 
 ### 10. Describa las funciones principales de la pila. ¿Cómo resuelve la arquitectura el llamado a funciones y su retorno?
+* Pasar datos a funciones o subrutinas
+* Guardar variables locales
+* Salvaguardar el estado del procesador y de los registros de propósito
+general cuando ocurre una interrupción
+* Guardar temporalmente el valor de registros previo a su reutilizació
 ### 11. Describa la secuencia de reset del microprocesador.
 ### 12. ¿Qué entiende por “core peripherals”? ¿Qué diferencia existe entre estos y el resto de los periféricos?
 ### 13. ¿Cómo se implementan las prioridades de las interrupciones? Dé un ejemplo
@@ -76,4 +81,8 @@ En el caso de ldr se puede agregar una 'b' para leer solo los 8 bits menos signi
 Para que el valor se extienda a 32 bits y mantenga el signo
 ### 3. ¿Qué utilidad tiene la implementación de instrucciones de aritmética saturada? Dé un ejemplo con operaciones con datos de 8 bits.
 ### 4. Describa brevemente la interfaz entre assembler y C ¿Cómo se reciben los argumentos de las funciones? ¿Cómo se devuelve el resultado? ¿Qué registros deben guardarse en la pila antes de ser modificados?
++ Los argumentos se reciben en los registros r0,r1,r2,r3. 
++ El resultado se devuelve en el registro r0.
+
 ### 5. ¿Qué es una instrucción SIMD? ¿En qué se aplican y que ventajas reporta su uso? Dé un ejemplo.
+SIMD (instrucción única, varios datos) proporciona compatibilidad de hardware para realizar una operación en varios fragmentos de datos, en paralelo, mediante una sola instrucción.
