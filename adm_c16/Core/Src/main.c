@@ -181,14 +181,19 @@ int main(void)
   uint32_t vector[4] = { 4, 5, 6, 7 };    // Agregar vector de prueba
   asm_zeros (vector, 4);                  // Agregar llamado a función*/
 
-  uint32_t Ej6_VecIN[4] = {2,3,6,5};
+  /*uint32_t Ej6_VecIN[4] = {2,3,6,5};
   uint16_t Ej6_VecOUT[4] = {0,0,0,0};
   pack32to16(Ej6_VecIN, Ej6_VecOUT, 4);
 
   int32_t pos_max_Ej6=0;
 
   pos_max_Ej6=max(Ej6_VecIN, 4);
-  pos_max_Ej6=asm_max(Ej6_VecIN, 4);
+  pos_max_Ej6=asm_max(Ej6_VecIN, 4);*/
+
+  uint32_t Ej8_VecIN[10] = {2,3,6,5,4,3,2,7,8,3};
+  uint32_t Ej8_VecOUT[10] = {0,0,0,0,0,0,0,0,0,0};
+
+  downsampleM(Ej8_VecIN, Ej8_VecOUT, 10, 3);
 
 
   /* USER CODE END 2 */
