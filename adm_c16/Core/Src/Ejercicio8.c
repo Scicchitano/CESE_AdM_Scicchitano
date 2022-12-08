@@ -12,9 +12,9 @@ void downsampleM (int32_t * vectorIn, int32_t * vectorOut, uint32_t longitud, ui
 {
 	int i = 0;
 	int x = 0;
-	for (i = 1; i <= longitud; i++) {
-		if ((i-x*N)!=N) {
-			vectorOut[i-1-x] = vectorIn[i-1];
+	for (i = 0; i <= longitud; i++) {
+		if ((i+1-x*N)!=N) {
+			vectorOut[i-x] = vectorIn[i];
 		}else{
 			x++;
 		}

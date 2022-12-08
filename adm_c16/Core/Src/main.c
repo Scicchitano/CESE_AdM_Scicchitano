@@ -57,6 +57,7 @@ void asm_zeros (uint32_t * vector, uint32_t longitud);   // Agregar esto
 void asm_productoEscalar32(uint32_t * vectorIn, uint32_t * vectorOut, uint32_t longitud, uint32_t escalar);
 void asm_productoEscalar16(uint16_t * vectorIn, uint16_t * vectorOut, uint32_t longitud, uint16_t escalar);
 int32_t asm_max(int32_t * vectorIn, uint32_t longitud);
+void asm_downsampleM (int32_t * vectorIn, int32_t * vectorOut, uint32_t longitud, uint32_t N);
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -193,7 +194,8 @@ int main(void)
   uint32_t Ej8_VecIN[10] = {2,3,6,5,4,3,2,7,8,3};
   uint32_t Ej8_VecOUT[10] = {0,0,0,0,0,0,0,0,0,0};
 
-  downsampleM(Ej8_VecIN, Ej8_VecOUT, 10, 3);
+  //downsampleM(Ej8_VecIN, Ej8_VecOUT, 10, 3);
+  asm_downsampleM(Ej8_VecIN, Ej8_VecOUT, 10, 3);
 
 
   /* USER CODE END 2 */

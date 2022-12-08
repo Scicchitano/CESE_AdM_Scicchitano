@@ -11,6 +11,7 @@
 .global asm_productoEscalar16
 .global asm_productoEscalar12
 .global asm_pack32to16
+.global asm_downsampleM
 
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -200,6 +201,44 @@
 		    subs r1, 1            @ Resta 1 a la cantidad de elementos y actualiza flags de estado del procesador. En particular, estamos interesados en el flag Z.
 		    bne asm_max_bucle   @ La instrucción se ejecuta mientras el resultado de r1 - 1 no sea cero (Z == 0).
 		ldr r0,[r2]
+    	bx lr
+
+
+  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ EJERCICIO 8
+@
+@ Prototipo en "C":
+@   void downsampleM (int32_t * vectorIn, int32_t * vectorOut, uint32_t longitud, uint32_t N);
+@
+@ Parametros recibidos:
+@   r0: dirección de memoria de inicio del vector IN
+@   r1: longitud
+.thumb_func               @ Se avisa al emsablador que esta es una funcion
+    asm_downsampleM:            @ Etiqueta/nombre de la función.
+        mov r4, 0         @ i = 1
+        mov r5, 0         @ x = 0
+        asm_downsampleM_bucle:  @ Etiqueta de comienzo de bucle.
+        	mul r7,r5,r3		@x*N
+        	sub r7,r4,r7		@i-x*N
+        	add r7,1			@i-x*N+1
+        	cmp r7,r3
+        	beq Multiplo		@Si r7=r3
+
+        	cmp r7,r3
+        	bne No_Multiplo		@Si r7!=r3
+
+        	Multiplo:
+	        	add r5,1	@x++
+	        	add r0,4
+
+        	No_Multiplo:
+        		ldr r1,[r0]
+	        	add r0,4
+	        	add r1,4
+
+			add r4,1
+		    subs r2, 1            @ Resta 1 a la cantidad de elementos y actualiza flags de estado del procesador. En particular, estamos interesados en el flag Z.
+		    bne asm_downsampleM_bucle   @ La instrucción se ejecuta mientras el resultado de r1 - 1 no sea cero (Z == 0).
     	bx lr
 
 
