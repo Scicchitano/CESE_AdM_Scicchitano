@@ -12,6 +12,8 @@
 .global asm_productoEscalar12
 .global asm_pack32to16
 .global asm_downsampleM
+.global asm_invertir
+.global asm_corr
 
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -242,6 +244,83 @@
     	bx lr
 
 
+
+
+
+  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ EJERCICIO 9
+@
+@ Prototipo en "C":
+@   void invertir (uint16_t * vector, uint32_t longitud)
+@
+@ Parametros recibidos:
+@   r0: dirección de memoria de inicio del vector IN
+@   r1: longitud
+.thumb_func               @ Se avisa al emsablador que esta es una funcion
+    asm_invertir:            @ Etiqueta/nombre de la función.
+        mov r2, #0         @ aux = 0
+        mov r3, #0         @ aux2 = 0
+        mov r4, #0         @ i = 0
+        mov r5,r0
+        add r5,r1
+        add r5,r1
+        sub r5,2
+        asm_invertir_bucle:  @ Etiqueta de comienzo de bucle.
+        	ldrh r2,[r5]		@aux = vector[longitud-1-i];
+        	ldrh r3,[r0]		@aux2 = vector[i];
+        	strh r2,[r0]		@vector[i] = aux;
+        	strh r3,[r5]		@vector[longitud-1-i] = aux2;
+
+
+
+
+        	sub r5,2
+        	add r0,2
+		    subs r1, 2            @ Resta 1 a la cantidad de elementos y actualiza flags de estado del procesador. En particular, estamos interesados en el flag Z.
+		    bne asm_invertir_bucle   @ La instrucción se ejecuta mientras el resultado de r1 - 1 no sea cero (Z == 0).
+
+    	bx lr
+
+
+
+
+
+  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ EJERCICIO 10
+@
+@ Prototipo en "C":
+@   void corr (int16_t *vectorX, int16_t * vector Y, int16_t vectorCorr, uint32_t longitud)
+@
+@ Parametros recibidos:
+@   r0: dirección de memoria del vector x
+@   r1: dirección de memoria del vector y
+@   r2: dirección de memoria del vector correlacion
+@   r3: longitud
+.thumb_func               @ Se avisa al emsablador que esta es una funcion
+    asm_corr:            @ Etiqueta/nombre de la función.
+		mov r4, #0         @ i = 0
+		mov r6,r0
+		mov r7,r1
+        asm_corr_bucle:  @ Etiqueta de comienzo de bucle.
+        	mov r9, #0         @ n = 0
+        	corr_bucle_sumatoria:
+        		sub r5,r3,r4	@N-i
+				mul r8,r6,r7
+				add r2,r2,r8
+
+				add r9,1
+				cmp r9,r3
+				bne corr_bucle_sumatoria		@Si N!=n
+
+			mov r7,r1
+			sub r7,r4	@y[n−i/2]
+			sub r7,r4	@y[n−i]
+
+			add r2,1			@i++
+		    subs r3, 1           @ Resta 1 a la cantidad de elementos y actualiza flags de estado del procesador. En particular, estamos interesados en el flag Z.
+		    bne asm_corr_bucle   @ La instrucción se ejecuta mientras el resultado de r1 - 1 no sea cero (Z == 0).
+
+    	bx lr
 
 
 

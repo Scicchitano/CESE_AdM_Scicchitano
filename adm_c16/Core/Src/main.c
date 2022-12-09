@@ -58,6 +58,7 @@ void asm_productoEscalar32(uint32_t * vectorIn, uint32_t * vectorOut, uint32_t l
 void asm_productoEscalar16(uint16_t * vectorIn, uint16_t * vectorOut, uint32_t longitud, uint16_t escalar);
 int32_t asm_max(int32_t * vectorIn, uint32_t longitud);
 void asm_downsampleM (int32_t * vectorIn, int32_t * vectorOut, uint32_t longitud, uint32_t N);
+void asm_invertir(uint16_t * vector, uint32_t longitud);
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -191,11 +192,16 @@ int main(void)
   pos_max_Ej6=max(Ej6_VecIN, 4);
   pos_max_Ej6=asm_max(Ej6_VecIN, 4);*/
 
-  uint32_t Ej8_VecIN[10] = {2,3,6,5,4,3,2,7,8,3};
+  /*uint32_t Ej8_VecIN[10] = {2,3,6,5,4,3,2,7,8,3};
   uint32_t Ej8_VecOUT[10] = {0,0,0,0,0,0,0,0,0,0};
 
-  //downsampleM(Ej8_VecIN, Ej8_VecOUT, 10, 3);
-  asm_downsampleM(Ej8_VecIN, Ej8_VecOUT, 10, 3);
+  downsampleM(Ej8_VecIN, Ej8_VecOUT, 10, 3);
+  asm_downsampleM(Ej8_VecIN, Ej8_VecOUT, 10, 3);*/
+
+  uint16_t Ej9_VecIN[10] = {2,3,6,5,4,3,2,7,8,3};
+  //invertir(Ej9_VecIN, 10);
+
+  asm_invertir(Ej9_VecIN, 10);
 
 
   /* USER CODE END 2 */
