@@ -75,11 +75,21 @@ Los Core Peripherals son:
 ### 13. ¿Cómo se implementan las prioridades de las interrupciones? Dé un ejemplo
 Las primeras tres fuentes de IRQ tienen prioridades fijas y el resto pueden programarse hasta en 128 niveles de prioridad.
 ### 14. ¿Qué es el CMSIS? ¿Qué función cumple? ¿Quién lo provee? ¿Qué ventajas aporta?
+El estándar de interfaz de software de microcontrolador común (CMSIS) es una capa de abstracción independiente del proveedor para microcontroladores que se basan en procesadores Arm Cortex. CMSIS define interfaces de herramientas genéricas y permite un soporte de dispositivo consistente. Las interfaces de software CMSIS simplifican la reutilización del software, reducen la curva de aprendizaje para los desarrolladores de microcontroladores y mejoran el tiempo de comercialización de nuevos dispositivos.
+
+CMSIS proporciona interfaces para procesadores y periféricos, sistemas operativos en tiempo real y componentes de software intermedio. CMSIS incluye un mecanismo de entrega para dispositivos, placas y software, y permite la combinación de componentes de software de múltiples proveedores.
 ### 15. Cuando ocurre una interrupción, asumiendo que está habilitada ¿Cómo opera el microprocesador para atender a la subrutina correspondiente? Explique con un ejemplo
 ### 17. ¿Cómo cambia la operación de stacking al utilizar la unidad de punto flotante?
 ### 16. Explique las características avanzadas de atención a interrupciones: tail chaining y late arrival.
+* Tail-chaining es un procesamiento consecutivo de excepciones sin la sobrecarga de ahorro de estado y restauración entre interrupciones. El procesador omite el pop de ocho registros y el push de ocho registros cuando sale de un ISR y entra en otro porque esto no tiene efecto en el contenido de la pila.
+El procesador se encadena si una interrupción pendiente tiene mayor prioridad que todas las excepciones apiladas.
+* Una excepción que llega tarde provoca un cambio en la obtención de la dirección del vector y la obtención previa de la excepción. El ahorro de estado no se realiza para la excepción de llegada tardía porque ya se realizó para la excepción inicial y, por lo tanto, no es necesario repetirlo. En este caso, la ejecución comienza en el vector de la excepción que llega tarde mientras la excepción anterior permanece pendiente.
+Si se reconoce una excepción de alta prioridad después de que haya comenzado la obtención del vector de la excepción original, la excepción que llega tarde no puede usar el contexto ya apilado para la excepción original. En este caso, el controlador de excepciones original se reemplaza y su contexto se guarda en la pila.
+
 ### 17. ¿Qué es el systick? ¿Por qué puede afirmarse que su implementación favorece la portabilidad de los sistemas operativos embebidos?
+El procesador tiene un temporizador de sistema de 24 bits, SysTick, que cuenta regresivamente desde el valor de recarga hasta cero, recarga, es decir, salta al valor en el registro SYST_RVR en el siguiente borde del reloj, luego cuenta regresivamente en los relojes subsiguientes.
 ### 18. ¿Qué funciones cumple la unidad de protección de memoria (MPU)?
+La MPU permite que el software privilegiado defina regiones de memoria y asigne permisos de acceso a la memoria y atributos de memoria a cada una de ellas. Dependiendo de la implementación del procesador, la cantidad de regiones de memoria admitidas variará. La MPU en los procesadores ARMv8-M admite hasta 16 regiones. Los atributos de memoria definen los comportamientos de ordenación y fusión de estas regiones, así como los atributos de almacenamiento en caché y almacenamiento en búfer. Los atributos de caché pueden ser utilizados por cachés internos, si están disponibles, y pueden exportarse para que los utilicen los cachés del sistema.
 ### 19. ¿Cuántas regiones pueden configurarse como máximo? ¿Qué ocurre en caso de haber solapamientos de las regiones? ¿Qué ocurre con las zonas de memoria no cubiertas por las regiones definidas?
 ### 20. ¿Para qué se suele utilizar la excepción PendSV? ¿Cómo se relaciona su uso con el resto de las excepciones? Dé un ejemplo
 ### 21. ¿Para qué se suele utilizar la excepción SVC? Expliquelo dentro de un marco de un sistema operativo embebido.
