@@ -61,8 +61,19 @@ Hardfault es cualquier tipo de contexto que ponga al microcontrolador en estado 
 general cuando ocurre una interrupción
 * Guardar temporalmente el valor de registros previo a su reutilizació
 ### 11. Describa la secuencia de reset del microprocesador.
+La duración de Power on reset y System reset depende del microcontrolador diseño. En algunos casos, el restablecimiento dura varios milisegundos, ya que el controlador de restablecimiento necesita esperar a que se estabilice una fuente de reloj, como un oscilador de cristal.
+Después del reinicio y antes de que el procesador comience a ejecutar el programa, el Cortex-M los procesadores leen las dos primeras palabras de la memoria (Figura 4.30). El comienzo de
+el espacio de memoria contiene la tabla de vectores, y las dos primeras palabras en la tabla de vectores son el valor inicial para el puntero de pila principal (MSP) y el vector de reinicio, que es la dirección inicial del controlador de restablecimiento. Después de que el procesador lea estas dos palabras, el procesador configura el MSP y el Contador de programa (PC) con estos valores.
+La configuración del MSP es necesaria porque algunas excepciones como el NMI o el controlador HardFault podría ocurrir poco después del reinicio, y la memoria de pila y, por lo tanto, el MSP serán necesarios para llevar parte del estado del procesador a la pila antes del manejo de excepciones
 ### 12. ¿Qué entiende por “core peripherals”? ¿Qué diferencia existe entre estos y el resto de los periféricos?
+Los Core Peripherals son:
+
+* Nested Vectored Interrupt Controller
+* System Control Block
+* System timer
+* Memory Protection Unit
 ### 13. ¿Cómo se implementan las prioridades de las interrupciones? Dé un ejemplo
+Las primeras tres fuentes de IRQ tienen prioridades fijas y el resto pueden programarse hasta en 128 niveles de prioridad.
 ### 14. ¿Qué es el CMSIS? ¿Qué función cumple? ¿Quién lo provee? ¿Qué ventajas aporta?
 ### 15. Cuando ocurre una interrupción, asumiendo que está habilitada ¿Cómo opera el microprocesador para atender a la subrutina correspondiente? Explique con un ejemplo
 ### 17. ¿Cómo cambia la operación de stacking al utilizar la unidad de punto flotante?
