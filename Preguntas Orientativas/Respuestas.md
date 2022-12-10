@@ -92,7 +92,11 @@ El procesador tiene un temporizador de sistema de 24 bits, SysTick, que cuenta r
 La MPU permite que el software privilegiado defina regiones de memoria y asigne permisos de acceso a la memoria y atributos de memoria a cada una de ellas. Dependiendo de la implementación del procesador, la cantidad de regiones de memoria admitidas variará. La MPU en los procesadores ARMv8-M admite hasta 16 regiones. Los atributos de memoria definen los comportamientos de ordenación y fusión de estas regiones, así como los atributos de almacenamiento en caché y almacenamiento en búfer. Los atributos de caché pueden ser utilizados por cachés internos, si están disponibles, y pueden exportarse para que los utilicen los cachés del sistema.
 ### 19. ¿Cuántas regiones pueden configurarse como máximo? ¿Qué ocurre en caso de haber solapamientos de las regiones? ¿Qué ocurre con las zonas de memoria no cubiertas por las regiones definidas?
 ### 20. ¿Para qué se suele utilizar la excepción PendSV? ¿Cómo se relaciona su uso con el resto de las excepciones? Dé un ejemplo
+PendSV es una solicitud de servicio a nivel del sistema impulsada por interrupciones. En un entorno de sistema operativo, use PendSV para cambiar de contexto cuando no haya ninguna otra excepción activa.
 ### 21. ¿Para qué se suele utilizar la excepción SVC? Expliquelo dentro de un marco de un sistema operativo embebido.
+Supervisor Call provoca una excepción de Supervisor Call. Para obtener más información, consulte Excepción de llamada de supervisor (SVC).
+
+El software puede usar esta instrucción como una llamada a un sistema operativo para proporcionar un servicio.
 
 ## ISA
 ### 1. ¿Qué son los sufijos y para qué se los utiliza? Dé un ejemplo
