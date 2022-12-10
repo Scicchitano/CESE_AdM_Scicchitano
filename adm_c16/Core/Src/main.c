@@ -60,6 +60,7 @@ int32_t asm_max(int32_t * vectorIn, uint32_t longitud);
 void asm_downsampleM (int32_t * vectorIn, int32_t * vectorOut, uint32_t longitud, uint32_t N);
 void asm_invertir(uint16_t * vector, uint32_t longitud);
 void asm_corr(uint16_t * vectorX,uint16_t * vectorY,uint16_t * vectorCorr, uint32_t longitud);
+void asm_corr_SMID(uint16_t * vectorX,uint16_t * vectorY,uint16_t * vectorCorr, uint32_t longitud);
 //(int16_t *vectorX, int16_t * vector Y, int16_t vectorCorr, uint32_t longitud);
 /* USER CODE END PV */
 
@@ -210,6 +211,7 @@ int main(void)
   uint16_t vectorCorr[10] = {0,0,0,0,0,0,0,0,0,0};
 
   asm_corr(Ej11_VecX, Ej11_VecY, vectorCorr, 10);
+  asm_corr_SMID(Ej11_VecX, Ej11_VecY, vectorCorr, 10);
 
   /* USER CODE END 2 */
 

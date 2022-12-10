@@ -14,6 +14,7 @@
 .global asm_downsampleM
 .global asm_invertir
 .global asm_corr
+.global asm_corr_SMID
 
 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -332,6 +333,56 @@
 
     	bx lr
 
+
+
+
+
+
+  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@ EJERCICIO 11 con SIMD
+@
+@ Prototipo en "C":
+@   void corr (int16_t *vectorX, int16_t * vector Y, int16_t vectorCorr, uint32_t longitud)
+@
+@ Parametros recibidos:
+@   r0: dirección de memoria del vector x
+@   r1: dirección de memoria del vector y
+@   r2: dirección de memoria del vector correlacion
+@   r3: longitud N
+.thumb_func               @ Se avisa al emsablador que esta es una funcion
+    asm_corr_SMID:            @ Etiqueta/nombre de la función.
+		mov r4, #0         @ l = 0
+		mov r6,r0		@voy a usar r6 como registro auxiliar para el vector x
+		mov r7,r1		@voy a usar r7 como registro auxiliar para el vector y
+		mov r9, #0         @ n = 0
+        asm_corr_bucle_SMID:  @ Etiqueta de comienzo de bucle.
+        	@ldrh r9, [r4]         @ n++
+        	mov r12, #0         @ x = 0
+        	mov r9, #0         @ n = 0
+        	corr_bucle_sumatoria_SMID:
+        		@sub r5,r3,r4	@N-l
+        		ldrh r10,[r6]		@aux = vector[longitud-1-i];
+        		ldrh r11,[r7]		@aux2 = vector[i];
+        		smlad r12, r10, r11, r12	@r12 += r10*r11
+
+				add r7,2	@paso a la siguiente palabra del vector
+				add r6,2	@paso a la siguiente palabra del vector
+				add r9,1	@n++
+				cmp r9,r3
+				bne corr_bucle_sumatoria		@Si N!=n
+
+			strh r12,[r2]		@corr(l) = x;
+			add r4,1	@l++
+			mov r6,r0	@Pongo el registro r6 en la posicion inicial
+			mov r7,r1	@Pongo el registro r7 en la posicion inicial
+			@En las siguientes dos lineas se 'desplaza' el vector x en l posiciones.
+			add r6,r4	@y[n−l/2]
+			add r6,r4	@y[n−l]
+
+		    subs r3, 1           @ Resta 1 a la cantidad de elementos y actualiza flags de estado del procesador. En particular, estamos interesados en el flag Z.
+		    bne asm_corr_bucle   @ La instrucción se ejecuta mientras el resultado de r1 - 1 no sea cero (Z == 0).
+
+    	bx lr
 
 
 
