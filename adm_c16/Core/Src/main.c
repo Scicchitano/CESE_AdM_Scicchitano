@@ -59,6 +59,8 @@ void asm_productoEscalar16(uint16_t * vectorIn, uint16_t * vectorOut, uint32_t l
 int32_t asm_max(int32_t * vectorIn, uint32_t longitud);
 void asm_downsampleM (int32_t * vectorIn, int32_t * vectorOut, uint32_t longitud, uint32_t N);
 void asm_invertir(uint16_t * vector, uint32_t longitud);
+void asm_corr(uint16_t * vectorX,uint16_t * vectorY,uint16_t * vectorCorr, uint32_t longitud);
+//(int16_t *vectorX, int16_t * vector Y, int16_t vectorCorr, uint32_t longitud);
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -198,11 +200,16 @@ int main(void)
   downsampleM(Ej8_VecIN, Ej8_VecOUT, 10, 3);
   asm_downsampleM(Ej8_VecIN, Ej8_VecOUT, 10, 3);*/
 
-  uint16_t Ej9_VecIN[10] = {2,3,6,5,4,3,2,7,8,3};
-  //invertir(Ej9_VecIN, 10);
+  /*uint16_t Ej9_VecIN[10] = {2,3,6,5,4,3,2,7,8,3};
+  invertir(Ej9_VecIN, 10);
 
-  asm_invertir(Ej9_VecIN, 10);
+  asm_invertir(Ej9_VecIN, 10);*/
 
+  uint16_t Ej11_VecX[10] = {2,3,6,5,4,3,2,7,8,3};
+  uint16_t Ej11_VecY[10] = {1,5,4,8,4,6,1,2,3,4};
+  uint16_t vectorCorr[10] = {0,0,0,0,0,0,0,0,0,0};
+
+  asm_corr(Ej11_VecX, Ej11_VecY, vectorCorr, 10);
 
   /* USER CODE END 2 */
 
